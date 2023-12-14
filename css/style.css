@@ -1,0 +1,26 @@
+div {
+    box-sizing: border-box;
+}
+
+.alert-box {
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    display: none;
+}
+
+.alert-box span {
+    font-weight: bold;
+}
+
+.bg-beige {
+    background-color: beige;
+}
+
+.bg-skyblue {
+    background-color: skyblue;
+}
+
+.bg-gray {
+    background-color: gray;
+}
