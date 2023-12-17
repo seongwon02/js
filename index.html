@@ -9,42 +9,28 @@
 </head>
 
 <body>
-    <div class="alert-box bg-gray" id="alert-1">
-        <span>Holy Guacamoloe!</span>
-         You Should check in on some
-        of those fields belows.
-        <button onclick="document.getElementById('alert-1').style.display='none'">
+    <div class="alert-box bg-gray" id="alert">
+        <p id="alert-text">???</p>
+        <button onclick="document.getElementById('alert').style.display='none'">
             삭제
         </button>
     </div>
 
-    <div class="alert-box bg-beige" id="alert-2">
-        <span>Holy Guacamoloe!</span>
-         You Should check in on some
-        of those fields belows.
-        <button onclick="document.getElementById('alert-2').style.display='none'">
-            삭제
-        </button>
-    </div>
+    <button onclick="버튼('아이디')">
+        버튼 1
+    </button>
 
-    <div class="alert-box bg-skyblue" id="alert-3">
-        <span>Holy Guacamoloe!</span>
-         You Should check in on some
-        of those fields belows.
-        <button onclick="document.getElementById('alert-3').style.display='none'">
-            삭제
-        </button>
-    </div>
-
-    <button onclick="작명()">
-        띄우기
+    <button onclick="버튼('비밀번호')">
+        버튼 2
     </button>
 
     <script>
-        function 작명() {
-            document.getElementById('alert-1').style.display='block'
+        function 버튼(요소1) {
+            document.getElementById('alert-text').innerHTML=요소1;
+            document.getElementById('alert').style.display='block';
         }
     </script>
+
 </body>
 
 </html>
