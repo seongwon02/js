@@ -13,7 +13,17 @@
     <div class="black-bg animation">
         <div class="white-bg">
           <h4>로그인하세요</h4>
-          <button class="btn btn-danger" id="close">닫기</button>
+
+          <form action="success.html">
+            <div class="my-3">
+              <input type="text" class="form-control" id="id">
+             </div>
+             <div class="my-3">
+               <input type="password" class="form-control" id="password">
+             </div>
+             <button type="submit" class="btn btn-primary" id="email">전송</button>
+             <button type="button" class="btn btn-danger" id="close">닫기</button>
+          </form>
         </div>
     </div>
 
@@ -51,6 +61,20 @@
     <script>
         $('.open-btn').on('click', function(){
             $('.black-bg').addClass('show-model');
+        })
+
+        $('#email').on('click', function(e){
+            if ($('#id').val() === ""){
+                e.preventDefault();
+                alert('오류')
+                return;
+            } else if($('#password').val() === ""){
+                e.preventDefault();
+                alert('오류')
+            } else if($('#password').val().length < 6){
+                e.preventDefault();
+                alert('오류')
+            }
         })
         
         $('#close').on('click', function(){
