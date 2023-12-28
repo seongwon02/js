@@ -12,24 +12,25 @@
 <body>
     <div class="black-bg animation">
         <div class="white-bg">
-          <h4>로그인하세요</h4>
+            <h4>로그인하세요</h4>
 
-          <form action="success.html">
-            <div class="my-3">
-              <input type="text" class="form-control" id="id">
-             </div>
-             <div class="my-3">
-               <input type="password" class="form-control" id="password">
-             </div>
-             <button type="submit" class="btn btn-primary" id="email">전송</button>
-             <button type="button" class="btn btn-danger" id="close">닫기</button>
-          </form>
+            <form action="success.html">
+                <div class="my-3">
+                    <input type="text" class="form-control" id="id">
+                </div>
+                <div class="my-3">
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-primary" id="email">전송</button>
+                <button type="button" class="btn btn-danger" id="close">닫기</button>
+            </form>
         </div>
     </div>
 
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <span class="navbar-brand">Navbar</span>
+            <span class="badge bg-dark ms-auto mx-3">Dark 🔄</span>
             <button class="navbar-toggler" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,41 +45,60 @@
         <li class="list-group-item">And a fifth one</li>
     </ul>
 
-    <button class="open-btn">버튼</button>
-
+    <div class="box">
+        <p>Shirts on Sales</p>
+        <button class="open-btn">로그인</button>
+    </div>
 
     
-    
-    
 
-   
+
+
+
+
+
+
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
-    </script>
-    
+        </script>
+
     <script>
-        $('.open-btn').on('click', function(){
+        $('.open-btn').on('click', function () {
             $('.black-bg').addClass('show-model');
         })
 
-        $('#email').on('click', function(e){
-            if ($('#id').val() === ""){
+        $('#email').on('click', function (e) {
+            if ($('#id').val() === "") {
                 e.preventDefault();
                 alert('오류')
                 return;
-            } else if($('#password').val() === ""){
+            } else if ($('#password').val() === "") {
                 e.preventDefault();
                 alert('오류')
-            } else if($('#password').val().length < 6){
+            } else if ($('#password').val().length < 6) {
                 e.preventDefault();
                 alert('오류')
             }
         })
-        
-        $('#close').on('click', function(){
+
+        $('#close').on('click', function () {
             document.querySelector('.black-bg').classList.remove('show-model');
+        })
+    </script>
+
+    <script>
+        var cnt = 0;
+        $('.badge').on('click', function(){
+            cnt += 1;
+            if (cnt % 2 == 0) {
+                $('.box').removeClass ('darkMode')
+                $('.badge').html('Dark🔄')
+            } else {
+                $('.box').addClass('darkMode')
+                $('.badge').html('Light🔄')
+            }
         })
     </script>
 
