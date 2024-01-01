@@ -16,12 +16,12 @@
 
             <form action="success.html">
                 <div class="my-3">
-                    <input type="text" class="form-control" id="id">
+                    <input type="text" class="form-control" id="email">
                 </div>
                 <div class="my-3">
-                    <input type="password" class="form-control" id="password">
+                    <input type="password" class="form-control" id="pw">
                 </div>
-                <button type="submit" class="btn btn-primary" id="email">전송</button>
+                <button type="submit" class="btn btn-primary" id="send">전송</button>
                 <button type="button" class="btn btn-danger" id="close">닫기</button>
             </form>
         </div>
@@ -50,7 +50,9 @@
         <button class="open-btn">로그인</button>
     </div>
 
-    
+    <div class="alert alert-danger">
+        <span class="CNT">5</span>초 이내 구매 시 사음품 증정
+    </div>
 
 
 
@@ -69,19 +71,23 @@
             $('.black-bg').addClass('show-model');
         })
 
-        $('#email').on('click', function (e) {
-            if ($('#id').val() === "") {
+        $('form').on('submit', function (e) {
+            var 입력한값 = document.getElementById('email').value;
+            var 비번 = document.getElementById('pw').value;
+
+            if (입력한값 == '') {
+                alert('아이디 입력안함');
                 e.preventDefault();
-                alert('오류')
-                return;
-            } else if ($('#password').val() === "") {
+            }else if (/\S+@\S+\.\S+/.test(입력한값) == false) {
+                alert('이메일형식아님')
                 e.preventDefault();
-                alert('오류')
-            } else if ($('#password').val().length < 6) {
+            }else if (/[A-Z]/.test(비번) == false) {
+                alert('대문자없는데요')
                 e.preventDefault();
-                alert('오류')
             }
         })
+        
+
 
         $('#close').on('click', function () {
             document.querySelector('.black-bg').classList.remove('show-model');
@@ -90,16 +96,29 @@
 
     <script>
         var cnt = 0;
-        $('.badge').on('click', function(){
+        $('.badge').on('click', function () {
             cnt += 1;
             if (cnt % 2 == 0) {
-                $('.box').removeClass ('darkMode')
+                $('.box').removeClass('darkMode')
                 $('.badge').html('Dark🔄')
             } else {
                 $('.box').addClass('darkMode')
                 $('.badge').html('Light🔄')
             }
         })
+    </script>
+
+    <script>
+        var num = 5
+
+        setInterval(function () {
+            num--;
+            $('.CNT').html(num);
+        }, 1000)
+
+        setTimeout(function () {
+            $('.alert').hide();
+        }, 5000)
     </script>
 
     <script>
