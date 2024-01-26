@@ -37,6 +37,15 @@ var car2 = { name: '소나타', price: 50000 }
 $('#name').html(car2.name);
 $('#price').html(car2.price);
 
+$.get('https://codingapple1.github.io/price.json')
+	.done(function(data){
+		console.log(data.price)
+	})
+	.fall(function(){
+		console.log('실패함')
+	})
+
+
 
 function openTab(num) {
 	$('.tab-button').removeClass('orange');
