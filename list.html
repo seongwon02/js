@@ -37,16 +37,25 @@
 
     var clickNum = 0;
     
-    $('.buy').click(function(){
+    $('.buy').click(function(e){
       var productName = $(this).prevAll('.title').text()
 
       if (localStorage.getItem('cart') != null) {
-        var 꺼낸거 = JSON.parse(localStorage.cart);
-        꺼낸거.push(productName);
-        localStorage.setItem('cart', JSON.stringify(꺼낸거));
+        var 장바구니 = JSON.parse(localStorage.cart);
+        var 존재여부 = 0
+        장바구니.forEach(function(a, i){
+          if (productName == a.title) {
+            a.num++
+            존재여부++
+          }
+        })
+        if(존재여부 < 1){
+          장바구니.push({title: productName, num: 1});
+        }
+        localStorage.setItem('cart', JSON.stringify(장바구니));
       } 
       else {
-        localStorage.setItem('cart', JSON.stringify([productName]));
+        localStorage.setItem('cart', JSON.stringify([{title: productName, num: 1}]));
       }
     })
 
@@ -88,7 +97,7 @@
           <img src="https://via.placeholder.com/600" class="w-100">
           <h5 class = "title" data-cnt="0">${n.title}</h5>
           <p>가격 : ${n.price}</p>
-          <button class="buy" >구매</button>
+          <button class="buy">구매</button>
         </div>`
         $('.row').append(cardBox)
       })
