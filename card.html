@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/card.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="card-background">
+        <div class="card-box">
+            <img class="card-img" src="img/card1.png">
+        </div>
+        <div class="card-box">
+            <img class="card-img" src="img/card2.png">
+        </div>
+        <div class="card-box">
+            <img class="card-img" src="img/card3.png">
+        </div>
+    </div>
+
+    <script>
+        $(window).scroll(function () {
+            var x = $(window).scrollTop();
+            console.log(x)
+            if (x >= 615 && x <= 1000) {
+                var scrollY_1 = (-1 / 385) * x + 1000 / 385;
+                var scrollY_2 = (-1 / 3850) * x + 9 / 10 + 100 / 385;
+                $('.card-box').eq(0).css('opacity', scrollY_1);
+                $('.card-box').eq(0).css('transform', `scale(${scrollY_2})`);
+            }
+            if (x >= 1117 && x <= 1502) {
+                var scrollY_1 = (-1 / 385) * x + 1502 / 385;
+                var scrollY_2 = (-1 / 3850) * x + 9 / 10 + 1502 / 3850;
+                $('.card-box').eq(1).css('opacity', scrollY_1);
+                $('.card-box').eq(1).css('transform', `scale(${scrollY_2})`);
+            }
+        });
+    </script>
+</body>
+
+</html>
