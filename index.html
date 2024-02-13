@@ -59,13 +59,13 @@
     <div style="overflow: hidden;">
         <div class="slide-container">
             <div class="slide-box">
-                <img src="img/car1.png">
+                <img src="img/car1.png" draggable="false">
             </div>
             <div class="slide-box">
-                <img src="img/car2.png">
+                <img src="img/car2.png" draggable="false">
             </div>
             <div class="slide-box">
-                <img src="img/car3.png">
+                <img src="img/car3.png" draggable="false">
             </div>
         </div>
     </div>
@@ -193,6 +193,7 @@
 
     <script>
         var imgNum = 0;
+
         $('.slide-1').on('click', function () {
             imgNum = 0;
             $('.slide-container').css('transform', 'translateX(0vw)');
@@ -208,6 +209,38 @@
             $('.slide-container').css('transform', 'translateX(-200vw)');
         })
 
+        var mouseX_1 = 0;
+        var mouseX_2 = 0;
+        var mouse1 = false;
+
+        $('.slide-box').eq(0).on('mousedown', function (e) {
+            mouseX_1 = e.clientX
+            mouse1 = true
+        })
+
+        $('.slide-box').eq(0).on('mouseup', function (e) {
+            mouse1 = false
+            if (mouseX_2 <= -100) {
+                $('.slide-container').css('transform', `translateX(${-100}vw)`);
+                $('.slide-container').css('transition', 'all 0.5s');
+            }
+            else if (mouseX_2 > -100) {
+                $('.slide-container').css('transform', `translateX(0vw)`);
+                $('.slide-container').css('transition', 'all 0.5s');
+            }
+
+            setTimeout(() => {
+                $('.slide-container').css('transition', 'none')
+            }, 500)
+        })
+
+        $('.slide-box').eq(0).on('mousemove', function (e) {
+            if (mouse1) {
+                mouseX_2 = e.clientX - mouseX_1
+                $('.slide-container').css('transform', `translateX(${mouseX_2}px)`);
+            }
+        })
+
         $('.next').on('click', function () {
             if (imgNum != -200) {
                 imgNum -= 100;
@@ -219,7 +252,6 @@
             if (imgNum != 0) {
                 imgNum += 100;
             }
-            console.log(`문자${imgNum}문자`)
             $('.slide-container').css('transform', 'translateX(' + imgNum + 'vw)');
         })
 
