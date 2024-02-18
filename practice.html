@@ -35,14 +35,14 @@
                     <input type="text" placeholder="검색어입력" id="search" onchange="searchItem()">
                 </div>
 
-                <div class="row">
+                <div class="item-container row">
 
                 </div>
             </div>
 
             <div class="main-basket">
                 <span>장바구니</span>
-                <div class="basket-drag">
+                <div class="basket-drag row">
                     <span>여기로 드래그</span>
                 </div>
             </div>
@@ -50,65 +50,104 @@
     </div>
 
     <script>
-        showItem()
+        var item = [];
+        var basketNum = [];
 
+        showItem()
 
         function showItem() {
             $.get("store.json")
                 .done(function (data) {
+                    item = data.products;
                     data.products.forEach(function (n) {
                         var itemBox =
-                            `<div class="item-box col-sm-3">
+                            `<div class="item-box col-sm-3" draggable = "true" data-id = ${n.id}>
                             <img src="${n.photo}" class="w-100">
                             <h4>${n.title}</h4>
                             <p>${n.brand}</p>
                             <h6>가격: ${n.price}</h6>
                             <button type="button" class="btn btn-dark">담기</button>
                             </div>`
-                        $('.row').append(itemBox)
+                        $('.item-container').append(itemBox)
 
                     });
                 })
         }
 
         function searchItem() {
-            $('.row').html('')
+            $('.item-container').html('');
             var searchName = $('#search').val()
 
             if (searchName == '') {
                 showItem()
             }
             else {
-                $.get("store.json")
-                    .done(function (data) {
-                        data.products.forEach(function (n) {
+                item.forEach(function (n) {
+                    var changeName = ''
+                    if (n.title.includes(searchName)) {
 
-                            var changeName = ''
-                            if (n.title.includes(searchName)) {
+                        var first = n.title.indexOf(searchName[0])
+                        var last = n.title.indexOf(searchName[searchName.length - 1])
 
-                                var first = n.title.indexOf(searchName[0])
-                                var last = n.title.indexOf(searchName[searchName.length - 1])
+                        changeName = n.title.slice(0, first) + '<span style="background : yellow">' + searchName + '</span>' + n.title.slice(last + 1, n.title.length)
 
-                                changeName = n.title.slice(0, first) + '<span style="background : yellow">' + searchName + '</span>' + n.title.slice(last + 1, n.title.length)
+                        var itemBox =
+                            `<div class="item-box col-sm-3" draggable = "true" data-id = ${n.id}>
+                                <img src="${n.photo}" class="w-100">
+                                <h4>${changeName}</h4>
+                                <p>${n.brand}</p>
+                                <h6>가격: ${n.price}</h6>
+                                <button type="button" class="btn btn-dark">담기</button>
+                            </div>`
 
-                                var itemBox =
-                                    `<div class="item-box col-sm-3">
-                                    <img src="${n.photo}" class="w-100">
-                                    <h4>${changeName}</h4>
-                                    <p>${n.brand}</p>
-                                    <h6>가격: ${n.price}</h6>
-                                    <button type="button" class="btn btn-dark">담기</button>
-                                    </div>`
-
-                                $('.row').append(itemBox)
-                            }
-                        })
-                    });
+                        $('.item-container').append(itemBox)
+                    }
+                })
             }
         }
+        
+        $(document).on('click', '.btn',function(e){
+            if (basketNum == 0) {
+                $('.basket-drag').html('')
+                
+                var itemId = e.target.parentNode.dataset.id
+                var itemBox =
+                            `<div class="drag-box col-sm-3" draggable = "true" data-id = ${item[itemId].id}>
+                                <img src="${item[itemId].photo}" class="w-100">
+                                <h5>${item[itemId].title}</h5>
+                                <p>${item[itemId].brand}</p>
+                                <h6>가격: ${item[itemId].price}</h6>
+                                <input class = "itemNum" type="text" value = "1">
+                            </div>`
+                $('.basket-drag').append(itemBox)
+                basketNum++
+            }
+            else {
+                var itemId = e.target.parentNode.dataset.id
+                var checkNum = 0
 
-
-
+                for (i = 0; i < basketNum; i++){
+                    var checkBasket = $('.basket-drag').children(".drag-box").eq(i)
+                    if (checkBasket.data("id") == itemId){
+                        var num = Number(checkBasket.children(".itemNum").val()) + 1
+                        checkBasket.children(".itemNum").val(num)
+                        checkNum++
+                    }
+                }
+                if(checkNum == 0){
+                    var itemBox =
+                            `<div class="drag-box col-sm-3" draggable = "true" data-id = ${item[itemId].id}>
+                                <img src="${item[itemId].photo}" class="w-100">
+                                <h5>${item[itemId].title}</h5>
+                                <p>${item[itemId].brand}</p>
+                                <h6>가격: ${item[itemId].price}</h6>
+                                <input class = "itemNum" type="text" value = "1">
+                            </div>`
+                $('.basket-drag').append(itemBox)
+                basketNum++
+                }   
+            }
+        })
 
     </script>
 
