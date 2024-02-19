@@ -72,7 +72,7 @@ html{
 }
 
 .btn{
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .main-basket{
@@ -128,4 +128,8 @@ html{
 .itemNum{
     width: 50%;
 
+}
+
+.totalPrice{
+    margin-top: 20px;
 }
