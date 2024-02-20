@@ -13,6 +13,25 @@
 
 <body>
     <div class="background">
+        <div class="black-bg">
+            <div class="userInfo">
+                <h7>성함</h7><br>
+                <input type="text" id="name"><br>
+                <h7>연락처</h7><br>
+                <input type="text" id="name"><br>
+                <button type="button" class="btn btn-dark" id="done">입력 완료</button>
+                <button type="button" class="btn btn-dark" id="close">닫기</button>
+            </div>
+        </div>
+
+        <div class="canvas hide">
+            <div style="width: 100%; height: 30px; background: lightgray;"></div>
+            <div class="receipt">
+                <canvas id="canvas" width="300" height="350"></canvas>
+            </div>
+        </div>
+        
+
         <div class="head-container">
             <div class="head-title">
                 <span>집꾸미기</span>
@@ -59,26 +78,58 @@
         var item = [];
         var basketNum = 0;
         var dragId = 0;
-        var price = 0;
 
         showItem()
-        
-        $(document).on('click', '#itemBtn', function(e){
+
+        $(document).on('click', '#itemBtn', function (e) {
             addBasket(e.target.parentNode.dataset.id)
         })
 
-        $(document).on("dragstart", ".item-box", function(e){
+        $(document).on("dragstart", ".item-box", function (e) {
             dragId = e.target.dataset.id
         })
 
-        $('.basket-drag').on('dragover', function(e){
+        $('.basket-drag').on('dragover', function (e) {
             e.preventDefault();
         })
 
-        $('.basket-drag').on('drop', function(e){
+        $('.basket-drag').on('drop', function (e) {
             e.preventDefault();
             addBasket(dragId)
         })
+
+        $('#buy').click(function () {
+            $('.black-bg').addClass('show-bg')
+
+        })
+
+        $('#done').click(function () {
+            $('.black-bg').removeClass('show-bg')
+            $('.canvas').removeClass('hide')
+            
+            var canvas = document.getElementById('canvas');
+            var c = canvas.getContext('2d');
+            var dt = new Date;
+
+            c.font = '18px dotum';
+            c.fillText('영수증', 10, 20);
+            c.fillText(`${}`, 10, 50); 
+        })
+
+        $('#close').click(function () {
+            $('.black-bg').removeClass('show-bg')
+        })
+
+        $('.black-bg').click(function (e) {
+            if (e.target == e.currentTarget) {
+                $('.black-bg').removeClass('show-bg')
+            }
+        })
+
+        
+            
+        
+
 
         function showItem() {
             $.get("store.json")
@@ -131,18 +182,18 @@
             }
         }
 
-        function addBasket(elementID){
+        function addBasket(elementID) {
             if (basketNum == 0) {
                 $('.basket-drag').html('')
-                
+
                 var itemId = elementID
                 var itemBox =
-                            `<div class="drag-box col-sm-3" draggable = "true" data-id = ${item[itemId].id}>
+                    `<div class="drag-box col-sm-3" draggable = "true" data-id = ${item[itemId].id}>
                                 <img src="${item[itemId].photo}" class="w-100">
                                 <h5>${item[itemId].title}</h5>
                                 <p>${item[itemId].brand}</p>
                                 <h6>가격: ${item[itemId].price}</h6>
-                                <input class = "itemNum" type="text" value = "1">
+                                <input class = "itemNum" type="text" value = "1" onchange = "calPrice()">
                             </div>`
                 $('.basket-drag').append(itemBox)
                 basketNum++
@@ -151,35 +202,43 @@
                 var itemId = elementID
                 var checkNum = 0
 
-                for (i = 0; i < basketNum; i++){
+                for (i = 0; i < basketNum; i++) {
                     var checkBasket = $('.basket-drag').children(".drag-box").eq(i)
-                    if (checkBasket.data("id") == itemId){
+                    if (checkBasket.data("id") == itemId) {
                         var num = Number(checkBasket.children(".itemNum").val()) + 1
                         checkBasket.children(".itemNum").val(num)
                         checkNum++
                     }
                 }
-                if(checkNum == 0){
+                if (checkNum == 0) {
                     var itemBox =
-                            `<div class="drag-box col-sm-3" draggable = "true" data-id = ${item[itemId].id}>
+                        `<div class="drag-box col-sm-3" draggable = "true" data-id = ${item[itemId].id}>
                                 <img src="${item[itemId].photo}" class="w-100">
                                 <h5>${item[itemId].title}</h5>
                                 <p>${item[itemId].brand}</p>
                                 <h6 id = "price">가격: ${item[itemId].price}</h6>
-                                <input class = "itemNum" type="text" value = "1">
+                                <input class = "itemNum" type="text" value = "1" onchange = "calPrice()">
                             </div>`
-                $('.basket-drag').append(itemBox)
-                basketNum++
-                }         
+                    $('.basket-drag').append(itemBox)
+                    basketNum++
+                }
             }
+            calPrice();
         }
 
-        
-        $("#totalPrice").html(`합계: ${price}`)
+        function calPrice() {
+            var totalprice = 0;
+            var childNum = $('.basket-drag').children(".drag-box").length
 
-        // Number($('.itemNum').val())
-        
+            for (i = 0; i < childNum; i++) {
+                var selectID = Number($('.basket-drag').children(".drag-box").eq(i).data("id"))
+                var selectNum = Number($('.basket-drag').children(".drag-box").eq(i).find('.itemNum').val())
+                var price = item[selectID].price * selectNum
+                totalprice += price
+            }
 
+            $("#totalPrice").html(`합계: ${totalprice}`)
+        }
     </script>
 
 

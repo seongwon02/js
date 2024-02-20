@@ -1,21 +1,75 @@
-html{
+html {
     min-width: 1423px;
 }
 
-.background{
+.background {
     width: 100%;
     height: 1000px;
     background: #F4F4F4;
 }
 
-.head-container{
+.black-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity 1s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.show-bg{
+    visibility: visible;
+    opacity: 1;
+}
+
+.userInfo {
+    width: 300px;
+    height: 350px;
+    padding: 70px 50px 70px 50px;
+    position: sticky;
+    background: white;
+    border-radius: 5px;
+    top: 20vh;
+    left: 40vw;
+}
+
+.userInfo h7 {
+    font-weight: bolder;
+}
+
+.userInfo button {
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+.canvas{
+    position: fixed;
+    top: 5vh;
+    left: 40vw;
+    background: white;
+    padding: 5px;
+    border: solid lightgray;
+    border-radius: 3px;
+}
+
+.hide {
+    display: none;
+}
+
+.receipt{
+    width: 100%;
+    padding: 5px 20px 5px 20px;
+}
+
+.head-container {
     width: 100%;
     height: 50px;
     background: #212529;
     color: white;
 }
 
-.head-title{
+.head-title {
     margin-left: 10px;
     margin-right: 20px;
     float: left;
@@ -23,7 +77,7 @@ html{
     line-height: 50px;
 }
 
-.head-menu{
+.head-menu {
     margin-right: 5px;
     margin-left: 5px;
     float: left;
@@ -31,25 +85,25 @@ html{
     line-height: 50px;
 }
 
-.main-container{
+.main-container {
     width: 100%;
     background: #F4F4F4;
     padding: 20px 50px 20px 50px;
-    position: relative;
+    
 }
 
-.main-item{
+.main-item {
     width: 100%;
     height: 500px;
     /* height: 1000px; */
 }
 
-.item-search{
+.item-search {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.item-box{
+.item-box {
     width: 305px;
     height: 440px;
     padding: 20px;
@@ -57,25 +111,25 @@ html{
     background: white;
 }
 
-.item-box img{
+.item-box img {
     margin-bottom: 30px;
     height: 200px;
 }
 
-.item-box h4{
+.item-box h4 {
     font-weight: bolder;
 }
 
-.item-box h6{
+.item-box h6 {
     font-size: 18px;
     font-weight: 500;
 }
 
-.btn{
+.btn {
     margin-top: 10px;
 }
 
-.main-basket{
+.main-basket {
     width: 100%;
     height: 520px;
     margin-top: 20px;
@@ -85,11 +139,11 @@ html{
     font-weight: bolder;
 }
 
-.main-basket > span{
+.main-basket>span {
     padding-left: 15px;
 }
 
-.basket-drag{
+.basket-drag {
     width: 100%;
     height: 415px;
     margin-top: 5px;
@@ -100,7 +154,7 @@ html{
     text-align: center;
 }
 
-.drag-box{
+.drag-box {
     width: 200px;
     height: 300px;
     padding: 20px;
@@ -111,25 +165,25 @@ html{
     line-height: normal;
 }
 
-.drag-box img{
+.drag-box img {
     margin-bottom: 30px;
     height: 100px;
 }
 
-.drag-box h5{
+.drag-box h5 {
     font-size: 18px;
     font-weight: bolder;
 }
 
-.drag-box h7{
+.drag-box h7 {
     font-weight: 500;
 }
 
-.itemNum{
+.itemNum {
     width: 50%;
 
 }
 
-.totalPrice{
+.totalPrice {
     margin-top: 20px;
 }
